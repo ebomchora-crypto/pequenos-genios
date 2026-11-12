@@ -27,8 +27,8 @@ Itens fora da lista não aparecem em "O que está incluído", na oferta nem em "
 `NEXT_PUBLIC_REFUND_POLICY` (texto real) — vazio = bloco oculto. `NEXT_PUBLIC_COMPANY_*` e `NEXT_PUBLIC_CONTACT_*` alimentam rodapé, termos e privacidade. **Revise `/termos` e `/privacidade` com assessoria jurídica.**
 
 ### 5. Materiais reais
-- Imagem do hero (opcional): coloque em `public/media/` e defina `NEXT_PUBLIC_HERO_IMAGE=/media/arquivo.webp` + `NEXT_PUBLIC_HERO_IMAGE_ALT`. Sem ela, aparece uma ilustração abstrata decorativa.
-- Mostruário de páginas da apostila/fichas: coloque as imagens em `public/media/` e preencha `showcaseImages` em `src/lib/product.ts` (`src`, `alt`, `caption`, `width`, `height`). Lista vazia = seção não é exibida.
+- Fotos: `public/media/fotos/` (Pexels, licença gratuita; créditos com link no rodapé, em `photoCredits` de `src/lib/product.ts`).
+- Seção "Materiais extras": usa páginas reais renderizadas dos PDFs do curso (`public/media/materiais/`), definidas em `materials` de `src/lib/product.ts`. A apostila só aparece com `handout` em `NEXT_PUBLIC_READY_ITEMS`, e as fichas só com `printables`. Inclua esses itens **somente depois** de subir os PDFs para as aulas na Kiwify. Com `printables`, o benefício "Materiais práticos para imprimir" também passa a aparecer no hero.
 
 ### 6. Analytics (opcional, só após consentimento)
 `NEXT_PUBLIC_GA4_ID` e `NEXT_PUBLIC_META_PIXEL_ID`. O banner de consentimento só aparece se algum ID existir. Eventos (`src/lib/analytics.ts`): `view_item` (ao carregar), `select_content` (CTAs de rolagem), `begin_checkout` (clique no checkout) e `purchase` — **somente** em `/confirmacao`, depois de o servidor confirmar o pedido via webhook, uma vez por pedido/navegador.

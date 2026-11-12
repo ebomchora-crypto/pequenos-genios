@@ -26,10 +26,13 @@ export function StickyCta() {
   if (!pastHero || offerVisible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-petrol-900/10 bg-white/95 p-3 backdrop-blur md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-brand/10 bg-white/95 px-4 py-3 shadow-[0_-8px_24px_-12px_rgba(20,33,61,0.25)] backdrop-blur md:hidden">
       <div className="mx-auto flex max-w-md items-center gap-3">
-        <p className="text-lg font-extrabold text-petrol-900">{formatBRL(product.price)}</p>
-        <CtaLink kind="scroll" href="#oferta" location="sticky" className="!min-h-11 flex-1 !text-sm">
+        <p className="leading-none">
+          <span className="block text-[11px] font-bold text-muted">Por apenas</span>
+          <span className="text-xl font-black text-grape">{formatBRL(product.price)}</span>
+        </p>
+        <CtaLink kind="scroll" href="#oferta" location="sticky" className="!min-h-12 flex-1 !text-sm">
           Ver a inscrição
         </CtaLink>
       </div>

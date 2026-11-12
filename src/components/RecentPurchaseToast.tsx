@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconClose } from "./icons";
+import { Icon } from "./icons";
 
 type RecentEvent = { id: string; paidAt: string };
 
@@ -74,16 +74,16 @@ export function RecentPurchaseToast() {
     <div
       role="status"
       aria-live="polite"
-      className="toast-in fixed bottom-24 left-3 z-40 flex max-w-[calc(100vw-1.5rem)] items-center gap-3 rounded-2xl border border-petrol-900/10 bg-white p-3 pl-4 shadow-xl md:bottom-6 md:left-6"
+      className="toast-in fixed bottom-24 left-3 z-40 flex max-w-[calc(100vw-1.5rem)] items-center gap-3 rounded-2xl border border-brand-dark/10 bg-white p-3 pl-4 shadow-xl md:bottom-6 md:left-6"
     >
-      <p className="text-sm font-semibold text-petrol-900">{label(current.paidAt, now)}</p>
+      <p className="text-sm font-semibold text-brand-dark">{label(current.paidAt, now)}</p>
       <button
         type="button"
         onClick={() => setCurrent(null)}
         aria-label="Fechar aviso"
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-petrol-900 hover:bg-aqua-100"
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-brand-dark hover:bg-brand-50"
       >
-        <IconClose className="h-4 w-4" />
+        <Icon name="close" className="h-4 w-4" />
       </button>
     </div>
   );

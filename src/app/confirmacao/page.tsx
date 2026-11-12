@@ -13,10 +13,10 @@ export default async function Confirmacao({ searchParams }: { searchParams: Prom
 
   return (
     <main className="mx-auto grid min-h-[70vh] max-w-xl place-items-center px-4 py-16">
-      <div className="w-full rounded-3xl border border-petrol-900/10 bg-white p-8 text-center shadow-lg">
+      <div className="w-full rounded-3xl border border-brand-dark/10 bg-white p-8 text-center shadow-lg">
         {purchase ? (
           <>
-            <h1 className="text-2xl font-extrabold text-petrol-900">Inscrição confirmada</h1>
+            <h1 className="text-2xl font-extrabold text-brand-dark">Inscrição confirmada</h1>
             <p className="mt-3 leading-relaxed text-ink/90">
               Obrigado! Você receberá as instruções de acesso ao curso {product.name} no e-mail informado na compra.
             </p>
@@ -24,14 +24,14 @@ export default async function Confirmacao({ searchParams }: { searchParams: Prom
           </>
         ) : (
           <>
-            <h1 className="text-2xl font-extrabold text-petrol-900">Ainda não encontramos a confirmação</h1>
+            <h1 className="text-2xl font-extrabold text-brand-dark">Ainda não encontramos a confirmação</h1>
             <p className="mt-3 leading-relaxed text-ink/90">
               A confirmação de pagamento pode levar alguns minutos. Atualize esta página em instantes.
               {company.email ? <> Se precisar, fale conosco em {company.email}.</> : null}
             </p>
           </>
         )}
-        <Link href="/" className="mt-6 inline-block font-semibold text-petrol-700 underline">
+        <Link href="/" className="mt-6 inline-block font-semibold text-brand underline">
           Voltar à página inicial
         </Link>
       </div>

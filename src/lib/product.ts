@@ -23,6 +23,12 @@ const toNumber = (v?: string) => {
 export const formatBRL = (value: number) =>
   new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 
+/** "R$ 19,90" → { currency: "R$", whole: "19", cents: "90" } para o selo de preço. */
+export const splitBRL = (value: number) => {
+  const [whole, cents = "00"] = value.toFixed(2).split(".");
+  return { currency: "R$", whole, cents };
+};
+
 const price = toNumber(process.env.NEXT_PUBLIC_PRICE) ?? 19.9;
 const referencePrice = toNumber(process.env.NEXT_PUBLIC_REFERENCE_PRICE);
 
@@ -39,12 +45,6 @@ export const product = {
   referencePrice: referencePrice && referencePrice > price ? referencePrice : undefined,
   refundPolicy: clean(process.env.NEXT_PUBLIC_REFUND_POLICY),
   availabilityText: clean(process.env.NEXT_PUBLIC_AVAILABILITY_TEXT),
-  hero: clean(process.env.NEXT_PUBLIC_HERO_IMAGE)
-    ? {
-        src: process.env.NEXT_PUBLIC_HERO_IMAGE as string,
-        alt: clean(process.env.NEXT_PUBLIC_HERO_IMAGE_ALT) ?? "Material do curso ABA e Autismo na Prática",
-      }
-    : undefined,
 } as const;
 
 export const company = {
@@ -55,13 +55,15 @@ export const company = {
   whatsapp: clean(process.env.NEXT_PUBLIC_CONTACT_WHATSAPP),
 };
 
+export const isReady = (key: ItemKey) => readyKeys.has(key);
+
 export type DeliverableItem = { key: ItemKey; title: string; detail: string; ready: boolean };
 
 const allItems: Omit<DeliverableItem, "ready">[] = [
-  { key: "modules", title: "14 módulos de fundamentos", detail: "Aulas em vídeo organizadas por tema." },
-  { key: "workshops", title: "5 oficinas práticas", detail: "Aplicações do conteúdo em situações do dia a dia." },
-  { key: "handout", title: "Apostila digital em PDF", detail: "Para ler, consultar e revisar no seu ritmo." },
-  { key: "printables", title: "20 materiais para imprimir", detail: "Fichas e apoios visuais prontos para uso." },
+  { key: "modules", title: "14 módulos de fundamentos", detail: "Aulas organizadas por tema, com explicação, exemplo e atividade." },
+  { key: "workshops", title: "5 oficinas práticas", detail: "Atividades guiadas para levar o conteúdo para casa e para a escola." },
+  { key: "handout", title: "Apostila digital em PDF", detail: "24 páginas para ler, consultar e revisar no seu ritmo." },
+  { key: "printables", title: "20 fichas para imprimir", detail: "Rotina visual, quadro de escolhas, mapa de preferências e mais." },
   { key: "quiz", title: "Questionário de revisão", detail: "Para fixar os pontos principais de cada etapa." },
   {
     key: "certificate",
@@ -72,42 +74,85 @@ const allItems: Omit<DeliverableItem, "ready">[] = [
 
 export const items: DeliverableItem[] = allItems.map((i) => ({ ...i, ready: readyKeys.has(i.key) }));
 export const readyItems = items.filter((i) => i.ready);
-export const isReady = (key: ItemKey) => readyKeys.has(key);
 
-/**
- * Imagens REAIS de páginas da apostila e das fichas. Coloque os arquivos em /public/media
- * e liste aqui. Enquanto estiver vazio, a seção de mostruário não é exibida.
- */
-export type ShowcaseImage = { src: string; alt: string; caption: string; width: number; height: number };
-export const showcaseImages: ShowcaseImage[] = [];
+/** Benefícios do hero: o de materiais impressos só aparece quando as fichas estão realmente disponíveis. */
+export const heroBenefits = [
+  { icon: "screen", title: "Aulas organizadas", text: "por módulos" },
+  isReady("printables")
+    ? { icon: "printer", title: "Materiais práticos", text: "para imprimir" }
+    : { icon: "spark", title: "Exemplos práticos", text: "em cada aula" },
+  { icon: "calendar", title: "Aprenda no", text: "seu ritmo" },
+] as const;
+
+/** Páginas reais dos PDFs do curso (renderizadas dos arquivos originais). */
+export const materials = {
+  handout: {
+    title: "Apostila ABA e Autismo na Prática",
+    text: "O conteúdo dos 14 módulos e das 5 oficinas reunido em 24 páginas para consultar quando precisar.",
+    image: "/media/materiais/apostila-capa.jpg",
+    alt: "Capa real da apostila ABA e Autismo na Prática",
+  },
+  printables: [
+    {
+      title: "Rotina visual flexível",
+      text: "Organize a sequência do dia com espaço para pausas e mudanças.",
+      image: "/media/materiais/ficha-rotina-visual.jpg",
+      alt: "Página real da ficha Rotina visual flexível",
+    },
+    {
+      title: "Quadro de escolhas",
+      text: "Ofereça opções concretas e aceite qualquer forma de resposta.",
+      image: "/media/materiais/ficha-quadro-escolhas.jpg",
+      alt: "Página real da ficha Quadro de escolhas",
+    },
+    {
+      title: "Mapa de preferências",
+      text: "Registre interesses e atividades favoritas para planejar com a pessoa.",
+      image: "/media/materiais/ficha-mapa-preferencias.jpg",
+      alt: "Página real da ficha Mapa de preferências",
+    },
+    {
+      title: "Checklist de autonomia",
+      text: "Divida uma tarefa importante em passos, com apoios e formas de pedir ajuda.",
+      image: "/media/materiais/ficha-checklist-autonomia.jpg",
+      alt: "Página real da ficha Checklist de autonomia",
+    },
+  ],
+} as const;
 
 export const audiences = [
-  { title: "Pais e familiares", text: "Para entender os conceitos e dialogar melhor com escola e profissionais." },
-  { title: "Professores", text: "Ideias de apoio à comunicação e à participação em sala de aula." },
-  { title: "Cuidadores", text: "Referências claras para organizar rotinas e apoiar a autonomia." },
-  { title: "Iniciantes", text: "Uma porta de entrada, sem exigir formação anterior." },
+  { icon: "home", tone: "brand", title: "Pais e familiares", text: "Entenda os conceitos e converse com mais segurança com a escola e os profissionais." },
+  { icon: "school", tone: "grape", title: "Professores", text: "Ideias para apoiar a comunicação e a participação em sala de aula." },
+  { icon: "hands", tone: "teal", title: "Cuidadores", text: "Referências claras para organizar rotinas e apoiar a autonomia." },
+  { icon: "sprout", tone: "sun", title: "Iniciantes", text: "Uma primeira porta de entrada, sem precisar de formação anterior." },
 ] as const;
 
 export const learnTopics = [
-  { title: "O que é ABA e seus limites", text: "O que a abordagem propõe, o que não propõe e por que ela não é a única forma de apoiar." },
-  { title: "Autismo e neurodiversidade", text: "Um olhar que reconhece diferenças sem reduzir a pessoa a um rótulo." },
-  { title: "Ética e assentimento", text: "Respeitar o “não”, os sinais e o ritmo da pessoa em cada atividade." },
-  { title: "Aprendizagem naturalística", text: "Aprender em situações do dia a dia, a partir dos interesses da pessoa." },
-  { title: "Comunicação acessível", text: "Formas diversas de se comunicar e como torná-las possíveis em casa e na escola." },
-  { title: "Apoio em atividades escolares", text: "Adaptar tarefas e ambientes com planejamento e diálogo com a equipe." },
-  { title: "Rotinas visuais", text: "Quadros e sequências visuais para tornar o dia mais previsível." },
-  { title: "Participação social", text: "Favorecer convivência e escolha, sem forçar um padrão de comportamento." },
-  { title: "Contexto sensorial", text: "Observar sons, luzes e texturas que influenciam conforto e participação." },
-  { title: "Planejamento colaborativo", text: "Construir metas junto com a família, a escola e os profissionais envolvidos." },
+  { icon: "book", title: "O que é ABA e seus limites", text: "O que a abordagem propõe, o que não propõe e por que não é a única forma de apoiar." },
+  { icon: "spark", title: "Autismo e neurodiversidade", text: "Reconhecer diferenças sem reduzir a pessoa a um rótulo." },
+  { icon: "shield", title: "Ética e assentimento", text: "Respeitar o “não”, os sinais e o ritmo da pessoa." },
+  { icon: "leaf", title: "Aprendizagem naturalística", text: "Aprender no dia a dia, a partir dos interesses da pessoa." },
+  { icon: "chat", title: "Comunicação acessível", text: "Fala, gestos, figuras e outras formas de se expressar." },
+  { icon: "school", title: "Apoio nas atividades escolares", text: "Adaptar tarefas sem perder o objetivo da aula." },
+  { icon: "calendar", title: "Rotinas visuais", text: "Deixar o dia mais previsível, com espaço para mudanças." },
+  { icon: "users", title: "Participação social", text: "Favorecer a convivência sem forçar um padrão." },
+  { icon: "ear", title: "Contexto sensorial", text: "Sons, luzes e texturas que afetam o conforto." },
+  { icon: "target", title: "Planejamento colaborativo", text: "Metas construídas com a família, a escola e a equipe." },
+] as const;
+
+export const principles = [
+  { icon: "heart", title: "Respeito ao ritmo", text: "Nada de pressa nem de cobrança constante." },
+  { icon: "chat", title: "Comunicação acessível", text: "Toda forma de se comunicar vale." },
+  { icon: "hands", title: "Autonomia com apoio", text: "Participar, com os apoios necessários." },
 ] as const;
 
 export const faq = [
   {
     q: "Preciso de formação anterior?",
-    a: "Não. O curso é uma introdução, pensado para quem está começando, sem exigir formação prévia.",
+    a: "Não. O curso é uma introdução, pensado para quem está começando. A linguagem é simples e os termos técnicos são explicados.",
   },
   {
-    q: "Posso assistir pelo celular?",
+    q: "Posso estudar pelo celular?",
     a: "Sim. O acesso é online e pode ser feito pelo celular, tablet ou computador.",
   },
   {
@@ -128,4 +173,10 @@ export const faq = [
       product.availabilityText ??
       "A página lista apenas o que já está disponível no momento da compra. Se algum conteúdo ainda estiver em preparação, ele não aparece como incluído.",
   },
+] as const;
+
+export const photoCredits = [
+  { label: "Professora e aluna contando", href: "https://www.pexels.com/photo/girl-in-yellow-long-sleeve-dress-learning-to-count-with-her-teacher-8613088/" },
+  { label: "Pai e filho desenhando", href: "https://www.pexels.com/photo/father-and-son-drawing-on-a-piece-of-paper-with-colored-pencils-7301123/" },
+  { label: "Atividade em sala", href: "https://www.pexels.com/photo/a-woman-teaching-a-boy-in-the-classroom-8923081/" },
 ] as const;

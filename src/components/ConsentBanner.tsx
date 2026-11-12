@@ -12,7 +12,7 @@ export function ConsentBanner() {
     <div
       role="dialog"
       aria-label="Preferências de privacidade"
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-2xl border border-petrol-900/10 bg-white p-4 shadow-xl sm:left-6 sm:right-auto"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-2xl border border-brand-dark/10 bg-white p-4 shadow-xl sm:left-6 sm:right-auto"
     >
       <p className="text-sm leading-relaxed text-ink">
         Usamos cookies de medição e de origem de campanha (Meta Pixel e Utmify) para entender o uso da página, somente com a sua
@@ -22,14 +22,14 @@ export function ConsentBanner() {
         <button
           type="button"
           onClick={() => setConsent("granted")}
-          className="min-h-11 flex-1 rounded-xl bg-petrol-700 px-4 text-sm font-semibold text-white hover:bg-petrol-900"
+          className="min-h-11 flex-1 rounded-xl bg-brand px-4 text-sm font-semibold text-white hover:bg-brand-dark"
         >
           Aceitar
         </button>
         <button
           type="button"
           onClick={() => setConsent("denied")}
-          className="min-h-11 flex-1 rounded-xl border border-petrol-900/25 px-4 text-sm font-semibold text-petrol-900 hover:bg-aqua-50"
+          className="min-h-11 flex-1 rounded-xl border border-brand-dark/25 px-4 text-sm font-semibold text-brand-dark hover:bg-brand-50"
         >
           Recusar
         </button>
