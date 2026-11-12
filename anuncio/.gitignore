@@ -1,0 +1,10 @@
+node_modules
+raw
+public/clips
+out/frames
+out/qa
+out/*.jpg
+tts/*.onnx
+tts/*.onnx.json
+tts/*.wav
+audio-src/*.wav
