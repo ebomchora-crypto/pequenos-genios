@@ -73,3 +73,9 @@ src/lib/            product.ts (dados centralizados), analytics, consent, purcha
 - [ ] Lighthouse mobile (Performance/Acessibilidade/SEO ≥ 90) e Core Web Vitals (LCP < 2,5 s, CLS < 0,1)
 - [ ] Rodapé com CNPJ, endereço e contato reais; termos e privacidade revisados juridicamente
 - [ ] Testar em iOS Safari e Chrome Android; imagens reais com `alt` descritivo
+
+## Estado atual em produção (Vercel)
+- Checkout: Kiwify `pay.kiwify.com.br/ld3r8fJ` (R$ 19,90, garantia de 7 dias).
+- Itens disponíveis: `modules,workshops,handout,printables`. A seção de materiais e o benefício "Materiais para imprimir" estão visíveis.
+- Contato no rodapé, termos e privacidade: e-mail definido em `NEXT_PUBLIC_CONTACT_EMAIL`. CNPJ e endereço ainda não informados.
+- Página de confirmação e aviso de novas inscrições: implementados, mas inativos (sem banco de dados nem webhook da Kiwify). A Kiwify usa a própria página de obrigado.
