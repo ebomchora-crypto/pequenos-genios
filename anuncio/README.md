@@ -1,6 +1,6 @@
 # Anúncio 30 s — ABA e Autismo na Prática
 
-Vídeo final: `out/anuncio-aba-autismo-30s.mp4` (1080×1920, 30 fps, H.264 + AAC, −16 LUFS).
+Vídeos finais: `out/anuncio-aba-autismo-30s.mp4` (9:16, 1080×1920, Reels/Stories) e `out/anuncio-aba-autismo-30s-4x5.mp4` (4:5, 1080×1350, Feed). Ambos com 30 fps, H.264 + AAC e −16 LUFS.
 
 ## Roteiro final (narração)
 | Tempo | Cena | Fala |
@@ -19,7 +19,8 @@ xargs -L 1 sh -c 'curl -s -o "raw/$0.mp4" "$1"' < fontes-pexels.txt   # baixa os
 ./preparar-clips.sh                                                  # recorte 9:16 + correção de cor
 python3 audio-src/trilha_e_sfx.py                                    # trilha e efeitos (já gerados em public/audio)
 npm run studio                                                       # pré-visualizar
-npm run render                                                       # gera out/anuncio-aba-autismo-30s.mp4
+npm run render                                                       # 9:16
+npx remotion render src/index.ts Anuncio45 out/anuncio-aba-autismo-30s-4x5.mp4   # 4:5
 ```
 Narração: Piper TTS (voz `pt_BR-faber-medium`, Hugging Face `rhasspy/piper-voices`), gerada por `tts/gen.py` e masterizada com ffmpeg (EQ, compressão e loudnorm). Para trocar por ElevenLabs, substitua `public/audio/l1..l4.wav` mantendo os tempos de `src/theme.ts`.
 
