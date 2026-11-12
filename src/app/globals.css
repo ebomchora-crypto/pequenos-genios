@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #faf8f3;
+  --color-ink: #12313a;
+  --color-petrol-900: #0b3c49;
+  --color-petrol-700: #0f5663;
+  --color-petrol-600: #14707f;
+  --color-aqua-50: #effaf8;
+  --color-aqua-100: #e0f3f0;
+  --color-aqua-300: #a8dad3;
+  --color-coral-100: #fde9e4;
+  --color-coral-500: #e8735a;
+  --color-coral-700: #b2432c;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-coral-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toast-in { animation: toast-in 0.35s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
