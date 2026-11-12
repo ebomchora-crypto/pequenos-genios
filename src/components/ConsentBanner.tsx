@@ -4,11 +4,9 @@ import Link from "next/link";
 import { setConsent } from "@/lib/consent";
 import { useConsent } from "./useConsent";
 
-const hasTracking = Boolean(process.env.NEXT_PUBLIC_GA4_ID?.trim() || process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim());
-
 export function ConsentBanner() {
   const consent = useConsent();
-  if (!hasTracking || consent !== "unknown") return null;
+  if (consent !== "unknown") return null;
 
   return (
     <div
@@ -17,7 +15,7 @@ export function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-2xl border border-petrol-900/10 bg-white p-4 shadow-xl sm:left-6 sm:right-auto"
     >
       <p className="text-sm leading-relaxed text-ink">
-        Usamos cookies de medição (Google Analytics e Meta) para entender o uso da página, somente com a sua
+        Usamos cookies de medição e de origem de campanha (Meta Pixel e Utmify) para entender o uso da página, somente com a sua
         permissão. Veja a <Link href="/privacidade" className="font-semibold underline">política de privacidade</Link>.
       </p>
       <div className="mt-3 flex gap-2">
