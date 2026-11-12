@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CtaLink } from "./CtaLink";
 import { ColorStripe } from "./Header";
+import { CookiePreferencesButton } from "./ConsentBanner";
 import { Icon, PriceSeal, Sparkle, type IconName } from "./icons";
 import {
   audiences,
@@ -416,6 +417,8 @@ export function Footer() {
             <a className="font-bold text-white underline" href="/termos">Termos de uso</a>
             <span aria-hidden> · </span>
             <a className="font-bold text-white underline" href="/privacidade">Política de privacidade (LGPD)</a>
+            <span aria-hidden> · </span>
+            <CookiePreferencesButton />
           </p>
         </div>
         <div className="space-y-3">

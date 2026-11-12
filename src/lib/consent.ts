@@ -21,6 +21,16 @@ export function setConsent(value: Exclude<Consent, "unknown">) {
   window.dispatchEvent(new Event(EVENT));
 }
 
+/** Apaga a escolha para o aviso aparecer de novo. */
+export function resetConsent() {
+  try {
+    window.localStorage.removeItem(KEY);
+  } catch {
+    /* sem armazenamento: nada a apagar */
+  }
+  window.dispatchEvent(new Event(EVENT));
+}
+
 export function subscribeConsent(cb: () => void) {
   window.addEventListener(EVENT, cb);
   window.addEventListener("storage", cb);
