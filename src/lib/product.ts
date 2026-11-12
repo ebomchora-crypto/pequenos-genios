@@ -30,7 +30,9 @@ export const product = {
   id: "aba-autismo-na-pratica",
   name: "ABA e Autismo na Prática",
   subtitle: "Fundamentos, ética, comunicação e apoio educacional respeitoso.",
-  siteUrl: clean(process.env.NEXT_PUBLIC_SITE_URL) ?? "http://localhost:3000",
+  siteUrl:
+    clean(process.env.NEXT_PUBLIC_SITE_URL) ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
   checkoutUrl: clean(process.env.NEXT_PUBLIC_CHECKOUT_URL),
   price,
   priceLabel: clean(process.env.NEXT_PUBLIC_PRICE_LABEL),
