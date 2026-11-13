@@ -175,6 +175,38 @@ export const faq = [
   },
 ] as const;
 
+/** Prints reais de clientes que compraram em vendas diretas e autorizaram a publicação. */
+export const testimonials = [
+  {
+    name: "Rosana",
+    image: "/media/depoimentos/rosana.webp",
+    width: 760,
+    height: 300,
+    alt: "Mensagem da cliente Rosana: Gostei muito, inclusive dos bônus que vieram juntos, me ajudaram demais!! Estou satisfeita, e pode postar meu depoimento.",
+  },
+  {
+    name: "Gabi",
+    image: "/media/depoimentos/gabi.webp",
+    width: 760,
+    height: 300,
+    alt: "Mensagem da cliente Gabi: Amei, super indico. Confesso que eu estava com muito medo antes de comprar, mas deu tudo certo, entregou na hora!!!",
+  },
+  {
+    name: "Isadora",
+    image: "/media/depoimentos/isadora.webp",
+    width: 760,
+    height: 350,
+    alt: "Mensagem da cliente Isadora: Gostei muito do conteúdo do pacote, recomendo. Pode postar minha recomendação, por favor.",
+  },
+  {
+    name: "Amanda",
+    image: "/media/depoimentos/amanda.webp",
+    width: 760,
+    height: 570,
+    alt: "Mensagem da cliente Amanda: Fiz a compra e gostei muito dos materiais enviados pra mim. Pode postar minha recomendação. Tinha muito medo de comprar mas aqui deu tudo certo, perfeito, não tenham medo.",
+  },
+] as const;
+
 export const photoCredits = [
   { label: "Professora e aluna contando", href: "https://www.pexels.com/photo/girl-in-yellow-long-sleeve-dress-learning-to-count-with-her-teacher-8613088/" },
   { label: "Pai e filho desenhando", href: "https://www.pexels.com/photo/father-and-son-drawing-on-a-piece-of-paper-with-colored-pencils-7301123/" },

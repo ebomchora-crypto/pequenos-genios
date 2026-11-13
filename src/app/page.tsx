@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Faq, Footer, ForWhom, HowItWorks, Included, Learn, Materials, Offer, RealLife } from "@/components/Sections";
+import { Faq, Footer, ForWhom, HowItWorks, Included, Learn, Materials, Offer, RealLife, Testimonials } from "@/components/Sections";
 import { StickyCta } from "@/components/StickyCta";
 import { RecentPurchaseToast } from "@/components/RecentPurchaseToast";
 import { ViewItemTracker } from "@/components/ViewItemTracker";
@@ -16,6 +16,7 @@ export default function Home() {
         <Learn />
         <Included />
         <Materials />
+        <Testimonials />
         <HowItWorks />
         <Offer />
         <Faq />

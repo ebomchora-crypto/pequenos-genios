@@ -16,6 +16,7 @@ import {
   product,
   readyItems,
   splitBRL,
+  testimonials,
 } from "@/lib/product";
 import familyPhoto from "../../public/media/fotos/familia-desenhando.jpg";
 import schoolPhoto from "../../public/media/fotos/escola-atividade.jpg";
@@ -264,6 +265,44 @@ export function Materials() {
             </ul>
           </div>
         ) : null}
+      </div>
+    </section>
+  );
+}
+
+export function Testimonials() {
+  return (
+    <section className="py-14 sm:py-20" aria-labelledby="depoimentos-titulo">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div id="depoimentos-titulo">
+          <SectionTitle
+            eyebrow="Depoimentos"
+            center
+            title="O que clientes disseram"
+            intro="Mensagens de clientes que compraram em vendas diretas e autorizaram a publicação."
+          />
+        </div>
+        <ul className="mt-10 gap-5 sm:columns-2">
+          {testimonials.map((t) => (
+            <li key={t.name} className="mb-5 break-inside-avoid">
+              <figure className="overflow-hidden rounded-3xl bg-black shadow-card ring-1 ring-brand/10">
+                <Image
+                  src={t.image}
+                  alt={t.alt}
+                  width={t.width}
+                  height={t.height}
+                  loading="lazy"
+                  sizes="(min-width: 640px) 45vw, 92vw"
+                  className="h-auto w-full"
+                />
+                <figcaption className="bg-white px-5 py-3 text-sm font-extrabold text-brand-dark">{t.name}, cliente</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <p className="mx-auto mt-2 max-w-xl text-center text-xs leading-relaxed text-muted">
+          Experiências individuais, que não representam garantia de resultado. Este é um curso livre introdutório.
+        </p>
       </div>
     </section>
   );
