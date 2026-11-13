@@ -282,25 +282,31 @@ export function Testimonials() {
             intro="Mensagens de clientes que compraram em vendas diretas e autorizaram a publicação."
           />
         </div>
-        <ul className="mt-10 gap-5 sm:columns-2">
-          {testimonials.map((t) => (
-            <li key={t.name} className="mb-5 break-inside-avoid">
-              <figure className="overflow-hidden rounded-3xl bg-black shadow-card ring-1 ring-brand/10">
-                <Image
-                  src={t.image}
-                  alt={t.alt}
-                  width={t.width}
-                  height={t.height}
-                  loading="lazy"
-                  sizes="(min-width: 640px) 45vw, 92vw"
-                  className="h-auto w-full"
-                />
-                <figcaption className="bg-white px-5 py-3 text-sm font-extrabold text-brand-dark">{t.name}, cliente</figcaption>
-              </figure>
-            </li>
-          ))}
+        <ul className="mt-9 grid gap-4 md:grid-cols-3">
+          {testimonials.map((t) => {
+            const tone = toneClasses[t.tone];
+            return (
+              <li key={t.name} className="rounded-3xl bg-brand-dark p-5 shadow-card sm:p-6">
+                <div className="flex items-center gap-3">
+                  <span aria-hidden className={`grid h-11 w-11 place-items-center rounded-full text-lg font-black ${tone.tile}`}>
+                    {t.name[0]}
+                  </span>
+                  <p className="text-base font-extrabold text-white">
+                    {t.name} <span className="font-semibold text-white/70">· cliente</span>
+                  </p>
+                </div>
+                <div className="mt-4 space-y-2">
+                  {t.messages.map((m) => (
+                    <p key={m} className="rounded-2xl rounded-tl-md bg-white/15 px-4 py-3 text-[17px] leading-snug text-white">
+                      {m}
+                    </p>
+                  ))}
+                </div>
+              </li>
+            );
+          })}
         </ul>
-        <p className="mx-auto mt-2 max-w-xl text-center text-xs leading-relaxed text-muted">
+        <p className="mx-auto mt-6 max-w-xl text-center text-xs leading-relaxed text-muted">
           Experiências individuais, que não representam garantia de resultado. Este é um curso livre introdutório.
         </p>
       </div>
